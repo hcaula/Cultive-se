@@ -1,0 +1,54 @@
+[
+  {
+    "id": "f1ddc218.d06f7",
+    "type": "tab",
+    "label": "Flow 2",
+    "disabled": false,
+    "info": ""
+  },
+  {
+    "id": "50421807.3c5688",
+    "type": "inject",
+    "z": "f1ddc218.d06f7",
+    "name": "Tick every 5 secs",
+    "topic": "test",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "5",
+    "crontab": "",
+    "once": false,
+    "x": 190,
+    "y": 520,
+    "wires": [["c38d9226.fbfd3"]]
+  },
+  {
+    "id": "a2e081a9.b0da2",
+    "type": "websocket out",
+    "z": "f1ddc218.d06f7",
+    "name": "",
+    "server": "260b7fce.d2ce6",
+    "client": "",
+    "x": 720,
+    "y": 520,
+    "wires": []
+  },
+  {
+    "id": "c38d9226.fbfd3",
+    "type": "function",
+    "z": "f1ddc218.d06f7",
+    "name": "Mock data",
+    "func": "const thresholds = {\n  temperature: {\n    min: 20,\n    max: 26\n  },\n  humidity_air: {\n    min: 50,\n    max: 70\n  },\n  humidity_soil: {\n    min: 50,\n    max: 70\n  }\n}\n\nconst generateRandom = (min, max) => {\n  return Math.floor(Math.random() * ((max * 1.05) - (min * 0.95)) ) + (min * 0.95);\n}\n\nconst { temperature, humidity_air, humidity_soil } = thresholds\nnode.log(temperature)\n\n\nconst mockedData = {\n    temperature: generateRandom(temperature.min, temperature.max),\n    humidity_soil: generateRandom(humidity_soil.min, humidity_soil.max),\n    humidity_air: generateRandom(humidity_air.min, humidity_air.max)\n}\n\nmsg.payload = JSON.stringify(mockedData)\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 438,
+    "y": 520,
+    "wires": [["a2e081a9.b0da2"]]
+  },
+  {
+    "id": "260b7fce.d2ce6",
+    "type": "websocket-listener",
+    "z": "f1ddc218.d06f7",
+    "path": "/ws/simple",
+    "wholemsg": "false"
+  }
+]
