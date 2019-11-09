@@ -1,8 +1,8 @@
-const { sendNotification } = require('./pushover')
+const { getBadMetrics } = require('./analyze')
 
 /* Connect to Cutive-se Raspberry Pi Websocket server */
 const WebSocket = require('ws')
-const ws = new WebSocket('ws://localhost:1880/ws/simple')
+const ws = new WebSocket('ws://10.0.202.253:1880/ws/simple')
 
 ws.onopen = () => {
   console.log('Connection openned :D')
@@ -13,5 +13,8 @@ ws.onclose = () => {
 }
 
 ws.onmessage = ({ data }) => {
-  console.log(data)
+  data = JSON.parse(data)
+  const badMetrics = getBadMetrics(data)
+
+  console.log(badMetrics)
 }
