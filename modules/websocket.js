@@ -19,9 +19,8 @@ const sendWebSocketData = data => {
 
 const initWebSocket = server => {
   wss = new WebSocketServer({
-    port: 8081,
     path: '/public/metrics',
-    httpServer: server
+    server
   })
 }
 
