@@ -10,7 +10,7 @@ wss.on('connection', ws => {
 
 const sendWebSocketData = data => {
   if (!sender) {
-    console.log('Received message from Rasp, but no client is connected :c')
+    // console.log('Received message from Rasp, but no client is connected :c')
     return
   }
 

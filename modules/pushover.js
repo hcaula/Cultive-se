@@ -20,13 +20,15 @@ const options = {
 let lastNotification = null
 
 const notificationIsEnabled = () => {
-  console.log(process.env.NOTIFICATION_ENABLED)
   if (!process.env.NOTIFICATION_ENABLED) return false
   if (process.env.NOTIFICATION_ENABLED === 'false') return false
   return true
 }
 
 const sendNotification = message => {
+  console.log(notificationIsEnabled())
+  console.log(ENABLE_LOCAL_NOTF)
+
   if (!notificationIsEnabled() || !ENABLE_LOCAL_NOTF) return
 
   const today = new Date()
