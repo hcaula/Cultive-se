@@ -31,6 +31,4 @@ const sendNotification = message => {
   req.end()
 }
 
-module.exports = {
-  sendNotification
-}
+module.exports = sendNotification

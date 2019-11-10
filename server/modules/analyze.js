@@ -1,4 +1,6 @@
 const THRESHOLDS = require('./thresholds')
+const { getHighMessage, getLowMessage } = require('./messages')
+const sendNotification = require('./pushover')
 
 const getBadMetrics = data => {
   const lowMetrics = []
@@ -22,6 +24,19 @@ const getBadMetrics = data => {
   }
 }
 
-module.exports = {
-  getBadMetrics
+const analyze = data => {
+  const { lowMetrics, highMetrics } = getBadMetrics(data)
+  let message = null
+
+  console.log(highMetrics)
+
+  if (lowMetrics.length > 0) {
+    message = getLowMessage(lowMetrics[0])
+  } else if (highMetrics.length > 0) {
+    message = getHighMessage(highMetrics[0])
+  }
+
+  // if (message) sendNotification(message)
 }
+
+module.exports = analyze
