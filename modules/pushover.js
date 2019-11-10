@@ -1,7 +1,7 @@
 const https = require('https')
 const { stringify } = require('querystring')
 
-const LIMIT_BETWEEN_NOTIFICATIONS = 1
+const LIMIT_BETWEEN_NOTIFICATIONS = 60000
 const HOSTNAME = 'api.pushover.net'
 const RESOURCE = '/1/messages.json'
 
@@ -29,16 +29,15 @@ const sendNotification = message => {
 
   const today = new Date()
   const diffMs = lastNotification
-    ? LIMIT_BETWEEN_NOTIFICATIONS + 1
-    : today - lastNotification
-  const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000)
+    ? today - lastNotification
+    : LIMIT_BETWEEN_NOTIFICATIONS + 1
 
-  if (diffMins < LIMIT_BETWEEN_NOTIFICATIONS) {
-    console.log(
-      `Wait ${LIMIT_BETWEEN_NOTIFICATIONS} min between notifications!`
-    )
+  if (diffMs < LIMIT_BETWEEN_NOTIFICATIONS) {
+    console.log(`Wait ${LIMIT_BETWEEN_NOTIFICATIONS} ms between notifications!`)
     return
   }
+
+  lastNotification = new Date()
 
   params.message = message
 
@@ -65,8 +64,6 @@ const sendNotification = message => {
   })
 
   req.end()
-
-  lastNotification = new Date()
 }
 
 module.exports = sendNotification
