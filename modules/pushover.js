@@ -20,6 +20,7 @@ const options = {
 let lastNotification = null
 
 const notificationIsEnabled = () => {
+  console.log(process.env.NOTIFICATION_ENABLED)
   if (!process.env.NOTIFICATION_ENABLED) return false
   if (process.env.NOTIFICATION_ENABLED === 'false') return false
   return true
