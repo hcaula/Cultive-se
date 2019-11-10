@@ -1,3 +1,3 @@
-const initMqtt = require('./mqtt')
+const initMqtt = require('./modules/mqtt')
 
 initMqtt()
