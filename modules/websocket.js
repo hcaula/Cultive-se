@@ -1,12 +1,6 @@
 const WebSocketServer = require('ws').Server
 
-let wss = new WebSocketServer({ port: 8081, path: '/public/metrics' })
 let sender = null
-
-wss.on('connection', ws => {
-  sender = ws
-  console.log('Connected to a WebSocket client, hello! :D')
-})
 
 const sendWebSocketData = data => {
   if (!sender) {
@@ -18,9 +12,14 @@ const sendWebSocketData = data => {
 }
 
 const initWebSocket = server => {
-  wss = new WebSocketServer({
+  const wss = new WebSocketServer({
     path: '/public/metrics',
     server
+  })
+
+  wss.on('connection', ws => {
+    sender = ws
+    console.log('Connected to a WebSocket client, hello! :D')
   })
 }
 
