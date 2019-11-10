@@ -12,7 +12,7 @@ module.exports = {
     max: 70
   },
   luminosity: {
-    min: 90,
-    max: 100
+    min: 50,
+    max: 90
   }
 }

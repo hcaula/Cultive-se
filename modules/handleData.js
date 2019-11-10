@@ -14,15 +14,13 @@ const nullifyCurrentData = () => {
 const isReadyToSend = () => {
   let readyToSend = true
   Object.keys(currentData).forEach(key => {
-    if (!currentData[key]) readyToSend = false
+    if (!currentData[key] && currentData[key] !== 0) readyToSend = false
   })
 
   return readyToSend
 }
 
-const handleData = (topic, message) => {
-  // console.log(`Received message from topic ${topic} :D`)
-
+const handleData = (_, message) => {
   const toString = message.toString()
   const data = JSON.parse(toString)
 

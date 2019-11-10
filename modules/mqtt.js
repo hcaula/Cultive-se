@@ -1,7 +1,7 @@
 const mqtt = require('mqtt')
 const handleData = require('./handleData')
 
-const IS_LOCAL = true
+const IS_LOCAL = false
 const PROTOCOL = 'mqtt://'
 const HIVE = 'broker.hivemq.com'
 const LOCAL_TOPICS = [

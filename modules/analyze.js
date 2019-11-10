@@ -28,13 +28,15 @@ const analyze = data => {
   const { lowMetrics, highMetrics } = getBadMetrics(data)
   let message = null
 
+  const lowIndex = Math.floor(Math.random() * lowMetrics.length)
+  const highIndex = Math.floor(Math.random() * highMetrics.length)
+
   if (lowMetrics.length > 0) {
-    message = getLowMessage(lowMetrics[0])
+    message = getLowMessage(lowMetrics[lowIndex])
   } else if (highMetrics.length > 0) {
-    message = getHighMessage(highMetrics[0])
+    message = getHighMessage(highMetrics[highIndex])
   }
 
-  console.log(message)
   if (message) sendNotification(message)
 }
 
