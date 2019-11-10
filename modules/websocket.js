@@ -1,6 +1,6 @@
 const WebSocketServer = require('ws').Server
 
-const wss = new WebSocketServer({ port: 8081, path: '/public/metrics' })
+let wss = new WebSocketServer({ port: 8081, path: '/public/metrics' })
 let sender = null
 
 wss.on('connection', ws => {
@@ -17,6 +17,15 @@ const sendWebSocketData = data => {
   sender.send(data)
 }
 
+const initWebSocket = server => {
+  wss = new WebSocketServer({
+    port: 8081,
+    path: '/public/metrics',
+    httpServer: server
+  })
+}
+
 module.exports = {
-  sendWebSocketData
+  sendWebSocketData,
+  initWebSocket
 }

@@ -17,7 +17,7 @@ const RASP_TOPICS = [
 
 const uri = `${PROTOCOL}${HIVE}`
 
-const init = () => {
+const init = server => {
   const client = mqtt.connect(uri)
 
   client.on('connect', () => {
