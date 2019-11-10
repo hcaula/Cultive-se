@@ -1,12 +1,17 @@
 const mqtt = require('mqtt')
-const { getBadMetrics } = require('./analyze')
+const analyze = require('./analyze')
 const { sendWebSocketData } = require('./websocket')
 
 const IS_LOCAL = true
 const PROTOCOL = 'mqtt://'
 const HIVE = 'broker.hivemq.com'
-const LOCAL_TOPICS = ['hackadeira/local']
-const RASP_TOPICS = ['hackadeira/estufa']
+const LOCAL_TOPICS = ['hackadeira/temperature']
+const RASP_TOPICS = [
+  'hackadeira/temperature',
+  'hackadeira/humidity_soil',
+  'hackadeira/humidity_air',
+  'hackadeira/luminosity'
+]
 
 const uri = `${PROTOCOL}${HIVE}`
 
@@ -32,6 +37,8 @@ const init = () => {
 
     sendWebSocketData(message.toString())
     const data = JSON.parse(message)
+
+    analyze(data)
   })
 }
 
