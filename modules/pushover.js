@@ -4,7 +4,6 @@ const { stringify } = require('querystring')
 const LIMIT_BETWEEN_NOTIFICATIONS = 1
 const HOSTNAME = 'api.pushover.net'
 const RESOURCE = '/1/messages.json'
-const ENABLE_LOCAL_NOTF = false
 
 const params = {
   token: 'as54gyap1wpj6f1p5tsp5h1xpazxay',
@@ -26,9 +25,7 @@ const notificationIsEnabled = () => {
 }
 
 const sendNotification = message => {
-  if (!notificationIsEnabled() || !ENABLE_LOCAL_NOTF) return
-
-  console.log('hello!')
+  if (!notificationIsEnabled()) return
 
   const today = new Date()
   const diffMs = lastNotification
