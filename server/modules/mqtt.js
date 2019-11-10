@@ -1,16 +1,18 @@
 const mqtt = require('mqtt')
-const analyze = require('./analyze')
-const { sendWebSocketData } = require('./websocket')
+const handleData = require('./handleData')
 
 const IS_LOCAL = true
 const PROTOCOL = 'mqtt://'
 const HIVE = 'broker.hivemq.com'
-const LOCAL_TOPICS = ['hackadeira/temperature']
-const RASP_TOPICS = [
-  'hackadeira/temperature',
+const LOCAL_TOPICS = [
+  'hackadeira/luminosity',
   'hackadeira/humidity_soil',
-  'hackadeira/humidity_air',
-  'hackadeira/luminosity'
+  'hackadeira/dht'
+]
+const RASP_TOPICS = [
+  'hackadeira/luminosity',
+  'hackadeira/humidity_soil',
+  'hackadeira/dht'
 ]
 
 const uri = `${PROTOCOL}${HIVE}`
@@ -19,7 +21,7 @@ const init = () => {
   const client = mqtt.connect(uri)
 
   client.on('connect', () => {
-    console.log(`Connected to ${HIVE} :D`)
+    console.log(`Connected ${IS_LOCAL ? 'locally' : ''} to ${HIVE} :D`)
 
     const topics = IS_LOCAL ? LOCAL_TOPICS : RASP_TOPICS
     client.subscribe(topics, err => {
@@ -32,14 +34,7 @@ const init = () => {
     })
   })
 
-  client.on('message', (topic, message) => {
-    console.log(`Received message from topic ${topic} :D`)
-
-    sendWebSocketData(message.toString())
-    const data = JSON.parse(message)
-
-    analyze(data)
-  })
+  client.on('message', handleData)
 }
 
 module.exports = init

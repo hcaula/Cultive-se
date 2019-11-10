@@ -28,8 +28,6 @@ const analyze = data => {
   const { lowMetrics, highMetrics } = getBadMetrics(data)
   let message = null
 
-  console.log(highMetrics)
-
   if (lowMetrics.length > 0) {
     message = getLowMessage(lowMetrics[0])
   } else if (highMetrics.length > 0) {

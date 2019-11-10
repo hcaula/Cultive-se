@@ -10,5 +10,9 @@ module.exports = {
   humidity_soil: {
     min: 50,
     max: 70
+  },
+  luminosity: {
+    min: 90,
+    max: 100
   }
 }
