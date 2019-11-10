@@ -21,7 +21,7 @@ const isReadyToSend = () => {
 }
 
 const handleData = (topic, message) => {
-  console.log(`Received message from topic ${topic} :D`)
+  // console.log(`Received message from topic ${topic} :D`)
 
   const toString = message.toString()
   const data = JSON.parse(toString)

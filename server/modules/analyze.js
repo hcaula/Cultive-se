@@ -34,7 +34,8 @@ const analyze = data => {
     message = getHighMessage(highMetrics[0])
   }
 
-  // if (message) sendNotification(message)
+  console.log(message)
+  if (message) sendNotification(message)
 }
 
 module.exports = analyze

@@ -5,9 +5,9 @@ const IS_LOCAL = true
 const PROTOCOL = 'mqtt://'
 const HIVE = 'broker.hivemq.com'
 const LOCAL_TOPICS = [
-  'hackadeira/luminosity',
-  'hackadeira/humidity_soil',
-  'hackadeira/dht'
+  'hackadeira/local_luminosity',
+  'hackadeira/local_humidity_soil',
+  'hackadeira/local_dht'
 ]
 const RASP_TOPICS = [
   'hackadeira/luminosity',
@@ -21,7 +21,7 @@ const init = () => {
   const client = mqtt.connect(uri)
 
   client.on('connect', () => {
-    console.log(`Connected ${IS_LOCAL ? 'locally' : ''} to ${HIVE} :D`)
+    // console.log(`Connected ${IS_LOCAL ? 'locally' : ''} to ${HIVE} :D`)
 
     const topics = IS_LOCAL ? LOCAL_TOPICS : RASP_TOPICS
     client.subscribe(topics, err => {
