@@ -1,5 +1,6 @@
 const mqtt = require('mqtt')
 const { getBadMetrics } = require('./analyze')
+const { sendWebSocketData } = require('./websocket')
 
 const IS_LOCAL = true
 const PROTOCOL = 'mqtt://'
@@ -27,7 +28,9 @@ const init = () => {
   })
 
   client.on('message', (topic, message) => {
-    console.log(`Received message from topic ${topic}`)
+    console.log(`Received message from topic ${topic} :D`)
+
+    sendWebSocketData(message.toString())
     const data = JSON.parse(message)
   })
 }
