@@ -24,6 +24,8 @@ const notificationIsEnabled = () => {
   return true
 }
 
+//
+
 const sendNotification = message => {
   if (!notificationIsEnabled()) return
 
