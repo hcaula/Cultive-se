@@ -26,10 +26,9 @@ const notificationIsEnabled = () => {
 }
 
 const sendNotification = message => {
-  console.log(notificationIsEnabled())
-  console.log(ENABLE_LOCAL_NOTF)
-
   if (!notificationIsEnabled() || !ENABLE_LOCAL_NOTF) return
+
+  console.log('hello!')
 
   const today = new Date()
   const diffMs = lastNotification
